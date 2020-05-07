@@ -1,22 +1,18 @@
 package test;
 
+
+import org.junit.Assert;
+import org.junit.Test;
+import src.OrchestratorClass;
+
+import static src.util.CommonUtils.invalidRequestError;
+
+
 public class OrchestratorClassTest {
 
-    @org.junit.Test
-    public void processNewRequests() {
-        //OrchestratorClass orchClass=mock(OrchestratorClass.class);
 
-    }
-
-    @org.junit.Test
-    public void processReportRequests() {
-    }
-
-    @org.junit.Test
-    public void printHelp() {
-    }
-
-    @org.junit.Test
-    public void main() {
+    @Test
+    public void testMain() {
+       // OrchestratorClass orch=
     }
 }
