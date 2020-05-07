@@ -12,8 +12,22 @@ public class UserUtilsTest {
 
     @Test
     public void testProcessUserRequest() throws Exception{
+        //Test success condition
         String result= UserUtils.processUserRequest(new String[]{"new","user","user1","user1@email.com","500"});
         Assert.assertEquals("user1(500.0)",result);
+        //Test invalid request format
+        result= UserUtils.processUserRequest(new String[]{"new","user","user1@email.com","500"});
+        Assert.assertEquals(invalidRequestError,result);
+        //Test invalid email format
+        result= UserUtils.processUserRequest(new String[]{"new","user","user2","user1ema.com","500"});
+        Assert.assertEquals(invalidEmailError,result);
+        //Test recreation of existing user - should be rejected
+        result= UserUtils.processUserRequest(new String[]{"new","user","user1","user1@email.com","500"});
+        Assert.assertEquals("rejected! (reason: User exists!)",result);
+        //Test invalid value
+        result= UserUtils.processUserRequest(new String[]{"new","user","user2","user1@email.com","Rs. 500"});
+        Assert.assertEquals(invalidValueError,result);
+
     }
 
     @Test

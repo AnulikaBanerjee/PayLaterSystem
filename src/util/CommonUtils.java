@@ -16,7 +16,7 @@ public class CommonUtils {
 
 	public static final String invalidRequestError= "Invalid request! Try command 'help' for list of valid commands.";
 	public static final String invalidValueError= "Invalid value! Change value and try again";
-	public static final String invalidEmailError= "Invalid email format! Sample email: abc@asd.tg";
+	public static final String invalidEmailError= "Invalid email format! Sample email: username@domain.domain";
 	public static final String userNotFound= "User not found in records!";
 	public static final String merchantNotFound= "Merchant not found in records!";
 

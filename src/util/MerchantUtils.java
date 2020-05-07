@@ -6,20 +6,6 @@ import static src.util.CommonUtils.*;
 
 public class MerchantUtils {
 
-
-	public static String printDiscountByMerchant(String[] input) {
-    	String merchant=input[2];
-    	if(discountRecords.containsKey(merchant)) {
-			return Double.toString(discountRecords.get(merchant));
-		}
-    	else{
-    		return ("Invalid merchant");
-		}
-
-
-	}
-
-
 	public static String processMerchantRequest(String[] input) {
 		if(input.length<5){
 			return (invalidRequestError);
@@ -49,6 +35,23 @@ public class MerchantUtils {
 		return "";
 	}
 
+	public static String printDiscountByMerchant(String[] input) {
+		String merchant;
+		try {
+			merchant = input[2];
+		}catch (ArrayIndexOutOfBoundsException e){
+			return invalidRequestError;
+		}
+    	if(discountRecords.containsKey(merchant)) {
+			return Double.toString(discountRecords.get(merchant));
+		}
+    	else{
+    		return ("No records/Invalid merchant");
+		}
+
+
+	}
+
 	public static String updateMerchantDiscount(String[] input) {
     	if(input.length<4){
 			return (invalidRequestError);
@@ -59,16 +62,14 @@ public class MerchantUtils {
 			Merchants merchant = merchantRecords.get(name);
 			if (merchantRecords.containsKey(name)) {
 				merchantRecords.put(name, merchant.updateDiscountRate(discountRate));
-				return (name + "(" + discountRate + ")");
+				return (name + "(" + discountRate + "%)");
 			} else {
-				return ("Merchant doesn't exist");
+				return (merchantNotFound);
 			}
 		}
     	catch(NumberFormatException e){
     		return invalidValueError;
 		}
-    	catch (NullPointerException e){
-    		return "";
-		}
+
 	}
 }
