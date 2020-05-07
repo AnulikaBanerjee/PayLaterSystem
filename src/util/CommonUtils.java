@@ -21,7 +21,7 @@ public class CommonUtils {
 	public static final String merchantNotFound= "Merchant not found in records!";
 
 	public static boolean validateEmail(String email) {
-		String emailRegex="^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+		String emailRegex="^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+.[A-Za-z]$";
 		Pattern pattern = Pattern.compile(emailRegex);
 		Matcher matcher = pattern.matcher(email);
 		if(matcher.matches()){

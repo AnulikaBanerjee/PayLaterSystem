@@ -1,0 +1,88 @@
+Hi PayLater Team, have a great day and don't forget to sign off. Just type 'logoff'! 
+ For command help, type 'help' 
+ >> help
+List of valid commands:
+new user [userName] [email] [creditLimit]
+new merchant [merchantName] [email] [discount%]
+new txn [userName] [merchantName] [transactionAmount]
+update merchant [merchantName] [discount%]
+payback [userName] [amount]
+report discount [merchantName]
+report dues [userName]
+report users-at-credit-limit
+report total-dues
+>> ner jghg
+List of valid commands:
+new user [userName] [email] [creditLimit]
+new merchant [merchantName] [email] [discount%]
+new txn [userName] [merchantName] [transactionAmount]
+update merchant [merchantName] [discount%]
+payback [userName] [amount]
+report discount [merchantName]
+report dues [userName]
+report users-at-credit-limit
+report total-dues
+>> new user u1 j@hj.n 600
+u1(600.0)
+>> new user u2 a@ 20
+Invalid email format! Sample email: username@domain.domain
+>> new user u2 j@hj.n 500
+u2(500.0)
+>> new user u1 j@hj.n 600
+rejected! (reason: User exists!)
+>> new user u3 j@hj.n 200
+u3(200.0)
+>> new merchant m1 h@h.h 5%
+m1(5.0%)
+>> new merchant m2 h@h.h 10%
+m2(10.0%)
+>> new merchant m3 h@h.h 20%
+m3(20.0%)
+>> new merchant m1 h@h.h 5%
+rejected! (reason: Merchant exists!)
+>> new merchant m4 h@h.h 5s%
+Invalid value! Change value and try again
+>> new merchant m5 h@g.h 5%
+m5(5.0%)
+>> new txn u1 m1 abcd
+Invalid value! Change value and try again
+>> new txn u2 m4 100
+Merchant not found in records!
+>> new txn u10 m1 100
+User not found in records!
+>> new txn u2 m2 100
+success!
+>> new txn u2 m2 600
+rejected! (reason: credit limit)
+>> new txn u2 m2 400
+success!
+>> report discount m2
+50.0
+>> payback u2 400
+u2(dues: 100.0)
+>> payback u2 200
+Pending amount is 100.0, but you are attempting to pay more!
+>> report total-dues
+u1: 0.0
+u2: 100.0
+u3: 0.0
+total: 100.0
+>> new txn u1 m1 100
+success!
+>> report users-at-credit-limit
+None of the users have reached credit limit!
+>> update merchant m1 20%
+m1(20.0%)
+>> update merchant m3 20
+m3(20.0%)
+>> update mechant m3 h
+Invalid value! Change value and try again
+>> new txn u1 m1 500
+success!
+>> report discount m1
+105.0
+>> report users-at-credit-limit
+u1
+>> logoff
+
+Process finished with exit code 0
