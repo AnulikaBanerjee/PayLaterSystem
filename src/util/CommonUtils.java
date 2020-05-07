@@ -44,11 +44,11 @@ public class CommonUtils {
 			//check user and merchant are valid
 			Users user=userRecords.get(userName);
 			if(user==null){
-				return  ("User "+userName+" doesn't exist in records");
+				return  userNotFound;
 			}
 			Merchants merchant= merchantRecords.get(merchantName);
 			if(merchant==null){
-				return ("Merchant "+merchantName+" doesn't exist in records");
+				return merchantNotFound;
 			}
 			//check transaction possible or not
 			if(user.getBalance()>=transactionAmount){

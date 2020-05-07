@@ -17,7 +17,7 @@ public class MerchantUtilsTest {
         //Test merchant creation
         String result= MerchantUtils.processMerchantRequest(new String[]{"new","merchant","merchant1","mer1@gmail.com","5%"});
         Assert.assertEquals("merchant1(5.0%)",result);
-        //Test invalid request format
+        //Test Insufficient request data
         result= MerchantUtils.processMerchantRequest(new String[]{"new","merchant","merchant2","mer1gmail.com"});
         Assert.assertEquals(invalidRequestError,result);
         //Test invalid email
@@ -44,7 +44,7 @@ public class MerchantUtilsTest {
         //Test with 0 discount from merchants
         String result=MerchantUtils.printDiscountByMerchant(new String[]{"report","discount","merchant1"});
         Assert.assertEquals("No records/Invalid merchant",result);
-        //Test with invalid data
+        //Test Insufficient request data
         result=MerchantUtils.printDiscountByMerchant(new String[]{"report","discount"});
         Assert.assertEquals(invalidRequestError,result);
 
@@ -62,7 +62,7 @@ public class MerchantUtilsTest {
     @Test
     public void testUpdateMerchantDiscount() {
         MerchantUtils.processMerchantRequest(new String[]{"new","merchant","merchant1","mer1@gmail.com","10%"});
-        //Test invalid request format
+        //Test Insufficient request data
         String result=MerchantUtils.updateMerchantDiscount(new String[]{"update","merchant1","5%"});
         Assert.assertEquals(invalidRequestError,result);
         //Test invalid value

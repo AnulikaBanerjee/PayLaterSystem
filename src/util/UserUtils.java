@@ -41,6 +41,9 @@ public class UserUtils {
     }
 
 	public static String processPayback(String[] input) {
+
+    	if(input.length<3)
+    		return invalidRequestError;
     	String name=input[1];
     	try {
 			double payback = Double.parseDouble(input[2]);

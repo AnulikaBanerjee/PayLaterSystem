@@ -15,7 +15,7 @@ public class UserUtilsTest {
         //Test success condition
         String result= UserUtils.processUserRequest(new String[]{"new","user","user1","user1@email.com","500"});
         Assert.assertEquals("user1(500.0)",result);
-        //Test invalid request format
+        //Test Insufficient request data
         result= UserUtils.processUserRequest(new String[]{"new","user","user1@email.com","500"});
         Assert.assertEquals(invalidRequestError,result);
         //Test invalid email format
@@ -50,6 +50,10 @@ public class UserUtilsTest {
         //Test invalid user
         result= UserUtils.processPayback(new String[]{"payback","user7","100"});
         Assert.assertEquals(userNotFound,result);
+        //Test Insufficient request data
+        result= UserUtils.processPayback(new String[]{"payback","user7"});
+        Assert.assertEquals(invalidRequestError,result);
+
 
     }
 
