@@ -8,9 +8,6 @@ import java.util.Map;
 
 import static src.util.CommonUtils.*;
 
-
-
-
 public class UserUtils {
 
 
@@ -37,7 +34,7 @@ public class UserUtils {
 			}
 			//handle negative input
 		}catch(NumberFormatException e){
-			// invalid amount
+			// invalid amount value
 			return invalidValueError;
 		}
 		return "";
@@ -56,6 +53,9 @@ public class UserUtils {
 		}
     	catch (NumberFormatException e){
 			return invalidValueError;
+		}
+    	catch (NullPointerException e){
+    		return userNotFound;
 		}
 
 	}
@@ -76,10 +76,10 @@ public class UserUtils {
 			return usersAtCrLimit.toArray(new String[usersAtCrLimit.size()]);
 	}
 
-	public static String[] printUserTotalDues(String[] input) {
-    	if(userRecords.size()==0){
-    		return new String[]{"No user records available"};
-    	}
+	public static String[] printUserTotalDues() {
+//    	if(userRecords.size()==0){
+//    		return new String[]{"No user records available"};
+//    	}
     	String[] dueList=new String[userRecords.size()+1];
     	int index=0;
     	double dues=0;

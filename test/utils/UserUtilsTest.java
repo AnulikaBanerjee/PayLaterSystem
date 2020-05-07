@@ -6,7 +6,7 @@ import src.util.CommonUtils;
 import src.util.MerchantUtils;
 import src.util.UserUtils;
 
-import static org.junit.Assert.*;
+import static src.util.CommonUtils.*;
 
 public class UserUtilsTest {
 
@@ -31,16 +31,47 @@ public class UserUtilsTest {
         result= UserUtils.processPayback(new String[]{"payback","user1","100"});
         Assert.assertEquals("user1(dues: 0.0)",result);
         //Test invalid data type
-        result= UserUtils.processPayback(new String[]{"payback","user1","100"});
-        Assert.assertEquals("user1(dues: 0.0)",result);
+        result= UserUtils.processPayback(new String[]{"payback","user7","10h0"});
+        Assert.assertEquals(invalidValueError,result);
+        //Test invalid user
+        result= UserUtils.processPayback(new String[]{"payback","user7","100"});
+        Assert.assertEquals(userNotFound,result);
 
     }
 
     @Test
-    public void printUsersAtCrLimit() {
+    public void testPrintUsersAtCrLimit() {
+        UserUtils.processUserRequest(new String[]{"new","user","user1","user1@email.com","500"});
+        UserUtils.processUserRequest(new String[]{"new","user","user2","user2@email.com","200"});
+        UserUtils.processUserRequest(new String[]{"new","user","user3","user3@email.com","300"});
+        UserUtils.processUserRequest(new String[]{"new","user","user4","user4@email.com","700"});
+        MerchantUtils.processMerchantRequest(new String[]{"new","merchant","merchant1","mer1@gmail.com","5%"});
+
+        //Test to print users who have reached their credit limit - No such case currently
+        String[] result=UserUtils.printUsersAtCrLimit();
+        Assert.assertArrayEquals(new String[]{"None of the users have reached credit limit!"},result);
+        //Processing some transactions
+        CommonUtils.processTransactionRequest(new String[]{"new","txn","user2","merchant1","200"});
+        CommonUtils.processTransactionRequest(new String[]{"new","txn","user4","merchant1","700"});
+        //Test to print users who have reached their credit limit
+        result=UserUtils.printUsersAtCrLimit();
+        Assert.assertArrayEquals(new String[]{"user2","user4"},result);
     }
 
     @Test
-    public void printUserTotalDues() {
+    public void testPrintUserTotalDues() {
+
+        //Test to print dues of all users and the total due amount- when no user records are present- total due is zero
+        String[] result=UserUtils.printUserTotalDues();
+        Assert.assertArrayEquals(new String[]{"total: 0.0"},result);
+
+        UserUtils.processUserRequest(new String[]{"new","user","user1","user1@email.com","100"});
+        UserUtils.processUserRequest(new String[]{"new","user","user2","user2@email.com","200"});
+        MerchantUtils.processMerchantRequest(new String[]{"new","merchant","merchant1","mer1@gmail.com","5%"});
+        CommonUtils.processTransactionRequest(new String[]{"new","txn","user2","merchant1","50"});
+        //Test to print dues of all users and the total due amount- when records exist
+        result=UserUtils.printUserTotalDues();
+        Assert.assertArrayEquals(new String[]{"user1: 0.0","user2: 50.0","total: 50.0"},result);
     }
+
 }

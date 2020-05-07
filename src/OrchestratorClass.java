@@ -28,7 +28,7 @@ public class OrchestratorClass {
     public static String[] processReportRequests(String[] input){
         String[] response;
         if("total-dues".equalsIgnoreCase(input[1]))
-            response= printUserTotalDues(input);
+            response= printUserTotalDues();
         else if("discount".equalsIgnoreCase(input[1]))
             response=new String[]{printDiscountByMerchant(input)};
         else if("users-at-credit-limit".equalsIgnoreCase(input[1]))
